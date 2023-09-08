@@ -5,6 +5,8 @@ import 'package:assignment/Product_View.dart';
 import 'package:assignment/product.dart';
 import 'package:flutter/material.dart';
 
+import 'Favourite.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -176,26 +178,46 @@ class _HomeViewState extends State<HomeView> {
             child: Row(
               children: [
                 // Container 1
-                _buildContainer(
-                  
+               customContainer(
+                backgroundColor: const Color(0xffFFC83A),
                   text: "Your Savings",
                 ),
 
                 // Container 2
-                _buildContainer(
-                 
-                  text: "Your Savings",
+               customContainer(
+                 backgroundColor:const Color(0xffE4DDCB),
+
+                  text: "Your total Savings",
                 ),
 
                 // Container 3
-                _buildContainer(
-                 
-                  text: "Your Savings",
+               customContainer(
+            backgroundColor: const Color(0xffFFC83A),
+                  text: "Your total Savings",
                 ),
+
+                 customContainer(
+                 backgroundColor: const Color(0xffE4DDCB),
+                  text: "Your total Savings",
+                ),
+
               ],
             ),
           ),
 
+const Center(
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Text(
+              "Our Shop",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
           // Vertical scrolling containers
           Expanded(
             child: SingleChildScrollView(
@@ -204,20 +226,20 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   // Container 4
                   _buildVerticalContainer(
-                   
+                   Image:"assests/images/1.jpg",
                     text: "HouseHolds",
                   ),
 
                   // Container 5
                   _buildVerticalContainer(
-                    
+                    Image:"assests/images/4.jpg",
                     text: "Groceries",
                   ),
 
                   // Container 6
                   _buildVerticalContainer(
-                    
-                                        text: "Electronic Appliances",
+                   Image:"assests/images/2.jpg", 
+             text: "Electronic Appliances",
                   ),
                 ],
               ),
@@ -254,7 +276,7 @@ class _HomeViewState extends State<HomeView> {
               onPressed: () {
                Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>  EcommerceApp()),
+    MaterialPageRoute(builder: (context) =>  FavoritesPage(favoriteProducts: const [])),
   );
               },
             ),
@@ -270,15 +292,16 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget _buildContainer({
-    required String text,
-  }) {
+ Widget customContainer({
+  required Color backgroundColor, // Pass the background color as a parameter
+  required String text,
+}) {
     return Container(
       width: 150,
       height: 100,
       margin: const EdgeInsets.fromLTRB(15, 20, 5, 10),
       decoration: BoxDecoration(
-        color: const Color(0xffFFC83A),
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -299,7 +322,7 @@ class _HomeViewState extends State<HomeView> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
@@ -324,70 +347,62 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _buildVerticalContainer({
    
-    required String text,
+    required String text, required String Image,
   }) {
     return Container(
-      width: 380,
-      height: 150,
-      margin: const EdgeInsets.all(10), // Adjust margin as needed
-      padding: const EdgeInsets.all(13), // Adjust padding as needed
-      decoration: BoxDecoration(
-      // ignore: prefer_const_constructors
-      gradient: LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [const Color(0xff153075), const Color.fromARGB(255, 3, 77, 138)], // Adjust gradient colors
-    ),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 17,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-           ElevatedButton(
-  onPressed: () {
-     Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>  EcommerceApp()),
-  );
-  },
-  style: ElevatedButton.styleFrom(
-    // ignore: deprecated_member_use
-    primary: Colors.white, // Background color
-    // ignore: deprecated_member_use
-    onPrimary: Colors.white, // Text color
-    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30), // Button padding
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30.0), // Button border radius
+  width: 380,
+  height: 150,
+  margin: const EdgeInsets.all(10), // Adjust margin as needed
+  padding: const EdgeInsets.all(15), // Adjust padding as needed
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(16),
+    image: DecorationImage(
+      image: AssetImage(Image), // Replace with your image asset path
+      fit: BoxFit.cover, // You can adjust the fit as needed
     ),
   ),
-  child: const Text(
-    "Shop Now",
-    style: TextStyle(
-      fontSize: 12,
-      color: Colors.black,
-      fontWeight: FontWeight.normal,
-    ),
-  ),
-)
-
-          ],
+  child: Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          text,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.normal,
+          ),
         ),
-      ),
-    );
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EcommerceApp()),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            // ignore: deprecated_member_use
+            primary:  const Color(0xff2A4BA0), // Background color
+            // ignore: deprecated_member_use
+            onPrimary: Colors.white, // Text color
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30), // Button padding
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0), // Button border radius
+            ),
+          ),
+          child: const Text(
+            "Shop Now",
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        )
+      ],
+    ),
+  ),
+);
+
   }
 }
-
-// void main() {
-//   runApp(MaterialApp(
-//     home: HomeView(),
-//   ));
-// }

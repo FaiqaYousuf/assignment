@@ -9,6 +9,7 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // ignore: prefer_const_constructors
         title: Text('Favorites'),
       ),
       body: ListView.builder(
@@ -25,3 +26,5 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 }
+
+
